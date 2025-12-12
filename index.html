@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mafia Game - Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <div class="container">
+            <h1>🎭 Mafia Game</h1>
+            <p class="subtitle">Multiplayer Social Deduction Game</p>
+            
+            <div class="input-group">
+                <label for="playerName">Your Name</label>
+                <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+            </div>
+
+            <div class="button-group">
+                <button id="createLobbyBtn" class="btn btn-primary">Create Lobby</button>
+                <button id="joinLobbyBtn" class="btn btn-secondary">Join Lobby</button>
+            </div>
+
+            <div id="joinLobbySection" class="hidden">
+                <div class="input-group">
+                    <label for="lobbyCode">Lobby Code</label>
+                    <input type="text" id="lobbyCode" placeholder="Enter 4-digit code" maxlength="4">
+                </div>
+                <button id="joinLobbyConfirmBtn" class="btn btn-primary">Join Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lobby Screen -->
+    <div id="lobbyScreen" class="screen">
+        <div class="container">
+            <div class="lobby-header">
+                <h2>Lobby</h2>
+                <div class="lobby-code">
+                    <span>Code:</span>
+                    <span id="displayLobbyCode" class="code-display">----</span>
+                </div>
+            </div>
+
+            <div class="players-section">
+                <h3>Players (<span id="playerCount">0</span>/<span id="maxPlayers">10</span>)</h3>
+                <div id="playersList" class="players-list"></div>
+            </div>
+
+            <div id="hostControls" class="host-controls hidden">
+                <h3>Host Controls</h3>
+                <div class="control-group">
+                    <label for="maxPlayersInput">Max Players (1-20)</label>
+                    <input type="number" id="maxPlayersInput" min="1" max="20" value="10">
+                </div>
+                <div class="button-group">
+                    <button id="addBotBtn" class="btn btn-secondary">Add Bot</button>
+                    <button id="startGameBtn" class="btn btn-primary">Start Game</button>
+                </div>
+            </div>
+
+            <button id="leaveLobbyBtn" class="btn btn-danger">Leave Lobby</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <div class="container">
+            <div class="game-header">
+                <div class="game-info">
+                    <div class="phase-display">
+                        <span id="phaseText">Night</span>
+                        <span id="roundNumber">Round 1</span>
+                    </div>
+                    <div class="role-display">
+                        Your Role: <span id="playerRole">???</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nightPhase" class="phase-section hidden">
+                <h3>🌙 Night Phase</h3>
+                <p id="nightInstructions">Wait for others to complete their actions...</p>
+                <div id="nightActions" class="action-section"></div>
+            </div>
+
+            <div id="dayPhase" class="phase-section hidden">
+                <h3>☀️ Day Phase</h3>
+                <div id="dayMessage" class="day-message"></div>
+                <h4>Vote to Eliminate</h4>
+                <div id="votingSection" class="voting-section"></div>
+                <div id="voteResults" class="vote-results hidden">
+                    <h4>Vote Results</h4>
+                    <div id="voteResultsList"></div>
+                </div>
+            </div>
+
+            <div class="alive-players">
+                <h4>Alive Players (<span id="aliveCount">0</span>)</h4>
+                <div id="alivePlayersList" class="players-list"></div>
+            </div>
+
+            <div class="message-log">
+                <h4>Game Log</h4>
+                <div id="messageLog" class="log-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <div class="container">
+            <h1 id="winnerText">Game Over</h1>
+            <div id="finalRoles" class="final-roles"></div>
+            <button id="backToHomeBtn" class="btn btn-primary">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <!-- Game Script -->
+    <script src="script.js"></script>
+</body>
+</html>
